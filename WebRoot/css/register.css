@@ -1,0 +1,64 @@
+.display {
+    color: red;
+}
+.formm{
+    font-family: monospace;
+    font-size: 26px;
+    color: rgb(197, 25, 111);
+}
+.floatr {
+    float: right;
+}
+.error{
+    color:red;
+}
+.normalcolor{
+    background-color:white;
+}
+.alertcolor{
+    background-color: lightgreen;
+}
+.content{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.img{
+    position: fixed;
+    left: 50%;
+    top: 16%;
+    transform: translate(-50%,-50%)
+}
+
+     .logo{
+        width: 200px;
+        position: absolute;
+        left: 42%;
+        top: 8%;
+
+        transform: translate(-50%,-50%);
+        z-index: -1;
+        }
+    .title{
+        width: 200px;
+        position: absolute;
+        left: 58%;
+        top: 8%;
+        transform: translate(-50%,-50%);
+        }
+  	 .footer1{
+		position: absolute;
+		bottom: -10%;
+		left:10%;
+		right:10%;
+		background-color:lightgray;
+		} 
+		.header{
+        color: rgb(131, 72, 0);
+        width: 100%;
+        font-size: 36px;
+        text-align: center;
+        z-index: -1;
+        }    
