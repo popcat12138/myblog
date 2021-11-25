@@ -1,6 +1,5 @@
 ## JAVAWEB多人博客系统
-# 使用mysql数据库
-数据库文件Blog.sql
+使用mysql数据库，数据库文件Blog.sql
 # 网站：www.zifeiwo.com
 
 # Java企业级开发与实践项目内容
