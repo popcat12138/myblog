@@ -1,3 +1,88 @@
 # Blog
- JAVAWEB多人博客系统
-zifeiwo.com
+## JAVAWEB多人博客系统
+# 使用mysql数据库
+# 网站：www.zifeiwo.com
+
+# Java企业级开发与实践项目内容
+   使用课堂所学知识完成一个简单博客网站的分析、设计和编程实现。要求完成整个Web应用的前端编程和后端服务器编程，实现一个完整的基于Web的信息系统。
+   博客网站中个人用户即普通用户，可以自己注册一个博客用户，注册时登记自己的一些基本信息和用户的一个简单描述，并设置登录的用户名和密码；注册用户登录网站后，可以修改自己注册时填写的用户信息，也可以修改自己的密码；可以发表、修改和删除自己的博客文章；用户可以添加自己的文章类型、修改类型和删除类型；删除文章类型时，如果文章类型已经被文章使用，则不能删除；在发表文章时必须选择一个自己添加过的文章类型；用户只能使用和管理自己添加的文章类型，不和其它用户共享文章类型。
+   网站的管理员可以管理网站上的所有用户（包括普通用户和管理员用户），可以查看和检索各个用户的信息，可以添加这两类用户，也可以修改用户信息，也可以为用户设置一个新密码，可以禁用一个用户，禁用后，此用户就不能再登录网站。管理员用户不能自己注册，只能别的管理员添加；管理员禁用管理员用户时，不能禁用自己（这里还有漏洞）。管理员禁用和启用用户时、设置用户密码时，需要记录操作日志（至少要记录操作类型、操作人、操作日期），并可以按用户查询操作日志和查询全部操作日志。
+   访客不用登录就可以查看所有用户发表的文章，但是只能查看不能修改，可以按文章名称模糊查询所有用户的文章，可以按日期查看最近发表的文章，可以按用户名字和用户的描述信息搜索用户，然后访问这个用户发表的文章，可以查看选定用户的所有文章，也可以按他自己的分类查看各类文章，可以浏览每篇文章的具体内容。访客的功能其他用户也可以使用。
+   登录用户在浏览别人的文章时，可以发表评论，也可以回复别人的评论。管理员可查看所有用户的评论，并可以删除（禁用方式）评论，禁用的评论不能在出现在普通客户的显示界面中，但可以出现在管理员查看评论的界面上。
+   用户登录成功和失败时，均记录登录日志，管理员后台可查询登录日志。
+   用户的信息至少包括，用户的登录名、密码、用户的姓名、性别、出生日期、手机、Email、微信号、描述信息、注册日期、最后修改日期等。
+   文章信息至少包括：文章的ID，文章标题，文章类型，文章内容，发表日期，最后修改日期等信息。
+选做功能：
+1. 登录时添加图片验证码；
+2. 文章内容的输入使用富文本组件；
+3. 修改密码使用Ajax方式；
+4. 个人信息里添加上传头像功能；
+
+# 数据库结构
+用户表（Users）包括管理员、普通用户
+是否为主键	字段名	字段描述	数据类型	长度	备注
+是	UserName	登录名	Varchar	50	
+	password	密码	Varchar	50	
+	fullName	姓名	Varchar	50	
+	Sex	性别	Varchar	10	
+	Birthday	出生日期	date		
+	phoneNum	电话号码	Number	(11,0)	
+	userEmail	电子邮箱	Varchar	30	
+	weiXin	微信号	Varchar	30	
+	myWords	个人签名/描述信息	Varchar	100	
+	registerTime	注册时间	timestamp		CURRENT_TIMESTAMP添加注册用户时，自动添加
+	alterTime	修改日期	timestamp		CURRENT_TIMESTAMP修改信息时更新
+	role	用户角色	Varchar	10	约束：普通用户，管理员
+默认：普通用户
+	state	用户状态	Varchar	10	约束：启用，禁用
+默认：启用
+	imgPath	用户头像地址	Varchar	200	默认：img/default.jpeg
+
+
+文章类型表(BlogType)
+是否为主键	字段名	字段描述	数据类型	长度	备注
+是	UserName	用户名	Varchar	50	外键，参照用户表的UserName，设置CASCADE级联更新
+是	blogtype	文章类型	Varchar	30	
+
+
+文章表(Article)
+是否为主键	字段名	字段描述	数据类型	长度	备注
+是	blogId	文章ID	Int	11	AUTO_INCREMENT依次递增
+	UserName	用户名	Varchar	50	外键，参照用户表的UserName，设置CASCADE级联更新
+	title	文章标题	Varchar	50	
+	Content	文章内容	longtext		
+	blogType	文章类型			外键，参照文章类型表的blogtype，设置CASCADE级联更新
+	createTime	发表日期	timestamp		CURRENT_TIMESTAMP添加文章时，自动更新
+	AlterTime	最后修改日期	timestamp		CURRENT_TIMESTAMP修改文章时更新
+
+
+
+评论回复表(Comment)
+是否为主键	字段名	字段描述	数据类型	长度	备注
+是	commentId	评论回复ID	int	11	AUTO_INCREMENT依次递增
+	blogId	文章ID	Int	11	外键，参照文章表的blogId，设置CASCADE级联更新
+	UserName	用户名	varchar	50	外键，参照用户表的UserName，设置CASCADE级联更新
+	content	评论内容	Varchar	300	
+	createTime	评论时间	timestamp		CURRENT_TIMESTAMP评论回复时，自动更新
+	parentId	评论的父节点	int	11	默认值为-1,说明是对文章的回复，其余值为回复
+	UserNameB	被回复人	varchar	50	外键，参照用户表的UserName，设置CASCADE级联更新，用来标志被回复人为谁
+	state	评论状态	varchar	10	约束：正常，禁用
+默认值：正常
+
+
+注册登录日志表(Log)
+是否为主键	字段名	字段描述	数据类型	长度	备注
+是	logId	日志ID	Int	11	AUTO_INCREMENT递增
+	userName	用户名	varchar	50	外键，参照用户表的UserName，设置CASCADE级联更新
+	logContent	日志详情	varchar	100	
+	logTime	日志时间	timestamp		CURRENT_TIMESTAMP,插入时，更新时间
+
+
+操作日志表(OperLog)
+是否为主键	字段名	字段描述	数据类型	长度	备注
+是	LogId	日志ID	Int	11	AUTO_INCREMENT递增
+	operator	操作人	varchar	50	外键，参照用户表的UserName，设置CASCADE级联更新
+	userName	被操作人	varchar	50	外键，参照用户表的UserName，设置CASCADE级联更新
+	logContent	日志详情	varchar	100	
+	createTime	日志时间	timestamp		CURRENT_TIMESTAMP,插入时，更新时间
+
