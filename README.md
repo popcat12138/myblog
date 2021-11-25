@@ -19,6 +19,8 @@
 4. 个人信息里添加上传头像功能；
 
 # 数据库结构
+![image](https://user-images.githubusercontent.com/80198566/143456861-6ef48c40-f276-45d9-809b-51556aaef235.png)
+
 ![image](https://user-images.githubusercontent.com/80198566/143456273-0a655aff-ad78-4a15-8ff9-9700c0ca1cb2.png)
 ![image](https://user-images.githubusercontent.com/80198566/143456396-023ed26f-18b6-4ba6-94cf-72bd806484fe.png)
 ![image](https://user-images.githubusercontent.com/80198566/143456485-a0387337-951e-4fb3-96d7-2e98a0d84275.png)
