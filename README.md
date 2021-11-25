@@ -1,7 +1,7 @@
 ## JAVAWEB多人博客系统
 使用mysql数据库，数据库文件Blog.sql，导入脚本创建数据库blog<br>
 项目连接数据库blog，密码password<br>
-MVC+jsp+servlet
+MVC+jsp+servlet+JDBC
 # 网站：www.zifeiwo.com
 
 # Java企业级开发与实践项目内容(BISTU)
